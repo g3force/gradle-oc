@@ -17,7 +17,7 @@ And configure it:
 oc {
     // Set the path to the oc binary manually or let it be detected from your path
 //    ocBinary = File("${System.getenv("user.home")}/.local/bin/oc")
-    clusterUrl = "https://your.cnap.cluster:443"
+    clusterUrl = "https://your.openshift.cluster:443"
     projectName = "your-project"
     // Set either a token file or the token itself. The tokenFile takes precedence, if it exists
     tokenFile = File("service-account.token")
