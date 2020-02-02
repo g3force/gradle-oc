@@ -14,6 +14,9 @@ abstract class OcExecTask : DefaultTask() {
     @Input
     var args: List<String> = emptyList()
 
+    @Input
+    var showOutput: Boolean = false
+
     @TaskAction
     open fun doAction() {
         execute(args)
@@ -28,11 +31,17 @@ abstract class OcExecTask : DefaultTask() {
                 .redirectErrorStream(true)
         pb.environment()["KUBECONFIG"] = "build/kube.config"
         val proc = pb.start()
-
         val errorCode = proc.waitFor()
+
+        val reader = BufferedReader(InputStreamReader(proc.inputStream))
+        val output = IOUtils.readLines(reader).joinToString("\n")
+
+        if (showOutput) {
+            println(command.joinToString(" "))
+            println(output)
+        }
+
         if (errorCode != 0) {
-            val reader = BufferedReader(InputStreamReader(proc.inputStream))
-            val output = IOUtils.readLines(reader).joinToString("")
             throw GradleException("Non zero error code '$errorCode' for command ${pb.command()}:\n${output}")
         }
     }
