@@ -5,11 +5,15 @@ import org.gradle.api.GradleException
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import org.gradle.internal.impldep.org.apache.commons.io.IOUtils
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
 
 abstract class OcExecTask : DefaultTask() {
+
+    private val logger: Logger = LoggerFactory.getLogger(OcExecTask::class.java)
 
     @Input
     var args: List<String> = emptyList()
@@ -26,6 +30,8 @@ abstract class OcExecTask : DefaultTask() {
         val command: MutableList<String> = mutableListOf(findOcBinary())
         command.addAll(arguments)
 
+        logger.info("Executing: ${command.joinToString(" ")}")
+
         val pb = ProcessBuilder(command)
                 .directory(File("."))
                 .redirectErrorStream(true)
@@ -35,6 +41,8 @@ abstract class OcExecTask : DefaultTask() {
 
         val reader = BufferedReader(InputStreamReader(proc.inputStream))
         val output = IOUtils.readLines(reader).joinToString("\n")
+
+        logger.info("Output: \n${output}")
 
         if (showOutput) {
             println(command.joinToString(" "))
