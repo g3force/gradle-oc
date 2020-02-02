@@ -1,3 +1,5 @@
+![CI](https://github.com/g3force/gradle-oc/workflows/CI/badge.svg)
+
 # Gradle OC Plugin
 
 This gradle plugins is a wrapper around a (currently only local) OC binary.
