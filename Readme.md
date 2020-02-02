@@ -2,15 +2,15 @@
 
 # Gradle OC Plugin
 
-This gradle plugins is a wrapper around a (currently only local) OC binary.
-You can specify the login configuration and apply yaml templates.
+This gradle plugin is a wrapper around a (currently only local) OC binary.
+You can specify the login configuration, apply yaml templates and create custom oc tasks.
 
 ## Usage
 
 Include the plugin in your build:
 ```kotlin
 plugins {
-    id("com.github.g3force.oc") version "0.1.0"
+    id("com.github.g3force.oc") version "0.2.0"
 }
 ```
 
@@ -27,7 +27,7 @@ oc {
 }
 ```
 
-To apply templates, define a `OcApplyTask`:
+To apply templates, define a `OcApplyTask` in your `build.gradle.kts`:
 ```kotlin
 // Apply all .yaml files in the templates directory
 tasks.register<com.github.g3force.oc.OcApplyTask>("ocApply") {
