@@ -17,4 +17,11 @@ tasks.register<com.github.g3force.oc.OcApplyTask>("ocApply") {
     source = fileTree("${projectDir}/templates") {
         include("*.yaml")
     }
+    dependsOn(tasks.findByPath(":ocProject"))
+}
+
+tasks.register<com.github.g3force.oc.OcExecTask>("ocGetMyService") {
+    args = listOf("get", "service", "my-service")
+    showOutput = true
+    dependsOn(tasks.findByPath(":ocProject"))
 }

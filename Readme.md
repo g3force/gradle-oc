@@ -35,4 +35,13 @@ tasks.register<com.github.g3force.oc.OcApplyTask>("ocApply") {
 }
 ```
 
+You can also define your own custom tasks:
+```kotlin
+tasks.register<com.github.g3force.oc.OcExecTask>("ocGetMyService") {
+    args = listOf("get", "service", "my-service")
+    showOutput = true
+    dependsOn(tasks.findByPath(":ocProject"))
+}
+```
+
 Also take the [example project](./example) as a reference.
