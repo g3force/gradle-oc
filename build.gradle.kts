@@ -15,6 +15,9 @@ repositories {
 dependencies {
     implementation(gradleApi())
     implementation(kotlin("stdlib"))
+    implementation("commons-io:commons-io:2.6")
+    implementation("org.apache.commons:commons-lang3:3.9")
+
     testImplementation("org.codehaus.groovy:groovy-all:2.5.8")
     testImplementation("org.spockframework:spock-core:1.3-groovy-2.5")
 }

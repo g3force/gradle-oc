@@ -1,6 +1,6 @@
 package com.github.g3force.oc
 
-import org.gradle.internal.impldep.org.apache.commons.lang.SystemUtils
+import org.apache.commons.lang3.SystemUtils
 import java.io.File
 
 class ExecutableFinder {
