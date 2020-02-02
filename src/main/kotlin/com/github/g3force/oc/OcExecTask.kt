@@ -9,7 +9,7 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
 
-abstract class OcExec : DefaultTask() {
+abstract class OcExecTask : DefaultTask() {
 
     @Input
     var args: List<String> = emptyList()
