@@ -21,9 +21,9 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        create("oc") {
+        create("ocPlugin") {
             id = "com.github.g3force.oc"
-            displayName = "OpenShift oc"
+            displayName = "OpenShift oc wrapper plugin"
             description = "Use the OpenShift oc client from within Gradle"
             implementationClass = "com.github.g3force.oc.OcPlugin"
         }
