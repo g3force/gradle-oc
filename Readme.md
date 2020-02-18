@@ -18,12 +18,14 @@ And configure it:
 ```kotlin
 oc {
     // Set the path to the oc binary manually or let it be detected from your path
-//    ocBinary = File("${System.getenv("user.home")}/.local/bin/oc")
+    // ocBinary = File("${System.getenv("user.home")}/.local/bin/oc")
     clusterUrl = "https://your.openshift.cluster:443"
     projectName = "your-project"
     // Set either a token file or the token itself. The tokenFile takes precedence, if it exists
     tokenFile = File("service-account.token")
-//    token = "secret-token"
+    // token = "secret-token"
+    // Disable TLS verify in case you are connecting to a dev cluster with self-signed certificate
+    insecure = false
 }
 ```
 
@@ -36,14 +38,22 @@ tasks.register<com.github.g3force.oc.OcApplyTask>("ocApply") {
     }
 }
 ```
-
+Or pass any additional CLI arguments:
+```kotlin
+// Apply all .yaml files in the templates directory without overwriting resources in cluster
+tasks.register<com.github.g3force.oc.OcApplyTask>("ocApply") {
+    args = listOf("--overwrite=false")
+    source = fileTree("${projectDir}/templates") {
+        include("*.yaml")
+    }
+}
+```
 You can also define your own custom tasks:
 ```kotlin
 tasks.register<com.github.g3force.oc.OcExecTask>("ocGetMyService") {
     args = listOf("get", "service", "my-service")
-    showOutput = true
     dependsOn(tasks.findByPath(":ocProject"))
 }
 ```
 
-Also take the [example project](./example) as a reference.
+Also, take the [example project](./example) as a reference.

@@ -5,7 +5,6 @@ import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
-
 abstract class OcApplyTask : OcExecTask() {
 
     @get:InputFiles
@@ -13,7 +12,7 @@ abstract class OcApplyTask : OcExecTask() {
 
     @TaskAction
     override fun doAction() {
-        source.forEach { f -> applyFile(f) }
+        source.forEach { applyFile(it) }
     }
 
     private fun applyFile(file: File) {
