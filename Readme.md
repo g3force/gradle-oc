@@ -7,14 +7,9 @@ You can specify the login configuration, apply yaml templates and create custom 
 
 ## Usage
 
-Include the plugin in your build:
-```kotlin
-plugins {
-    id("com.github.g3force.oc") version "0.2.0"
-}
-```
+Find instruction on how to include the plugin in your build on the Gradle plugin portal: https://plugins.gradle.org/plugin/com.github.g3force.oc
 
-And configure it:
+Then configure it:
 ```kotlin
 oc {
     // Set the path to the oc binary manually or let it be detected from your path
