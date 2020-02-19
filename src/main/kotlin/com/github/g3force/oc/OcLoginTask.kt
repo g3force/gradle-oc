@@ -13,7 +13,6 @@ abstract class OcLoginTask : OcExecTask() {
             config.token = tokenFile.readText()
         }
 
-        args = listOf("login", config.clusterUrl, "--token", config.token)
-        super.doAction()
+        execute(listOf("login", config.clusterUrl, "--token", config.token))
     }
 }
