@@ -1,5 +1,6 @@
 package com.github.g3force.oc
 
+import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 
 
@@ -25,7 +26,6 @@ abstract class OcLoginTask : OcExecTask() {
         if (!credentials.isEmpty()) {
             return listOf("-u", credentials.username, "-p", credentials.password)
         }
-        logger.info("No authorisation data provided")
-        return emptyList()
+        throw GradleException("No authorisation data provided")
     }
 }
