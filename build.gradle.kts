@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.github.g3force"
-version = "0.4.0"
+version = "0.4.1"
 
 repositories {
     jcenter()
