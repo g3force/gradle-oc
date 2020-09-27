@@ -1,6 +1,5 @@
 package com.github.g3force.oc
 
-import org.apache.commons.io.IOUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.Input
@@ -8,6 +7,7 @@ import org.gradle.api.tasks.TaskAction
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
+import kotlin.concurrent.thread
 
 abstract class OcExecTask : DefaultTask() {
     @Input
@@ -37,15 +37,22 @@ abstract class OcExecTask : DefaultTask() {
                 .redirectErrorStream(true)
         processBuilder.environment()["KUBECONFIG"] = "build/kube.config"
         val process = processBuilder.start()
+
+        thread {
+            val reader = BufferedReader(InputStreamReader(process.inputStream))
+            reader.use { r ->
+                var line = r.readLine()
+                while (line != null) {
+                    logger.info("oc: $line")
+                    line = r.readLine()
+                }
+            }
+        }
+
         val errorCode = process.waitFor()
 
-        val reader = BufferedReader(InputStreamReader(process.inputStream))
-        val output = IOUtils.readLines(reader).joinToString("\n")
-
-        logger.info("Output: \n${output}")
-
         if (errorCode != 0) {
-            throw GradleException("Non zero error code '$errorCode' for command ${processBuilder.command()}:\n${output}")
+            throw GradleException("Non zero error code '$errorCode' for command ${processBuilder.command()}")
         }
     }
 
